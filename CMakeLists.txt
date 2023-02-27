@@ -23,13 +23,16 @@ file(GLOB  imgui_node_editor_sources CONFIGURE_DEPENDS ${NODE_DIR}/*.inl ${NODE_
 target_include_directories(EmscriptenDearImGui PRIVATE ${NODE_DIR})
 target_sources(EmscriptenDearImGui PRIVATE
         "main.cpp"
-        "application.h"
-        "application.cpp"
-        "renderer.h"
-        "platform.h"
-        "setup.h"
-        "platform.h"
+        "blueprints-example.h"
         "stb_image.h"
+        "renderer.h"
+        "renderer_ogl3.cpp"
+        "utilities/builders.h"
+        "utilities/builders.cpp"
+        "utilities/drawing.h"
+        "utilities/drawing.cpp"
+        "utilities/widgets.h"
+        "utilities/widgets.cpp"
 
         ${imgui_node_editor_sources}
 )

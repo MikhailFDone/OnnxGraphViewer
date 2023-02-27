@@ -11,10 +11,10 @@ add_library(imgui STATIC
     "./imgui/imgui_widgets.cpp"
     "./imgui/imgui_demo.cpp"
 
-    "./imgui/backends/imgui_impl_sdl2.h"
+    "./imgui/backends/imgui_impl_sdl.h"
     "./imgui/backends/imgui_impl_opengl3.h"
 
-    "./imgui/backends/imgui_impl_sdl2.cpp"
+    "./imgui/backends/imgui_impl_sdl.cpp"
     "./imgui/backends/imgui_impl_opengl3.cpp"
 )
 add_library(imgui::imgui ALIAS imgui)
