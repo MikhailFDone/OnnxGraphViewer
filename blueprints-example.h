@@ -689,7 +689,7 @@ struct ExampleBpNodes
         ImGui::EndHorizontal();
 
         static ImGuiTextFilter filter;
-        filter.Draw("", paneWidth);
+        filter.Draw("###", paneWidth);
 
         ImGui::Spacing();
 

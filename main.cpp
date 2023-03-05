@@ -170,6 +170,7 @@ int main(int, char**)
         }
 
         // 2,5. NODES
+        if (show_another_window)
         {
             static float f = 0.0f;
             static int counter = 0;
