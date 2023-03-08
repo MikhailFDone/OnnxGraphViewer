@@ -1,3 +1,5 @@
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
 cmake_minimum_required(VERSION 3.16)
 
 # set the project name and version
@@ -23,6 +25,7 @@ file(GLOB  imgui_node_editor_sources CONFIGURE_DEPENDS ${NODE_DIR}/*.inl ${NODE_
 target_include_directories(EmscriptenDearImGui PRIVATE ${NODE_DIR})
 target_sources(EmscriptenDearImGui PRIVATE
         "main.cpp"
+        "emscripten_mainloop_stub.h"
         "blueprints-example.h"
         "stb_image.h"
         "renderer.h"
@@ -39,9 +42,14 @@ target_sources(EmscriptenDearImGui PRIVATE
 
 
 if (EMSCRIPTEN)
-    target_compile_options(EmscriptenDearImGui PUBLIC "-sUSE_SDL=2;-sUSE_FREETYPE=1;-sUSE_SDL_IMAGE=2")
-    target_link_options(EmscriptenDearImGui PUBLIC "-sUSE_SDL=2;-sUSE_FREETYPE=1;-sUSE_SDL_IMAGE=2")
-    add_link_options(-sASSERTIONS)
+    target_compile_options(EmscriptenDearImGui PUBLIC "-sUSE_SDL=2;-sUSE_FREETYPE=1;-sUSE_SDL_IMAGE=2;")
+    target_link_options(EmscriptenDearImGui PUBLIC "-sUSE_SDL=2;-sUSE_FREETYPE=1;-sUSE_SDL_IMAGE=2;")
+    add_link_options("-sASSERTIONS")
+    set_target_properties(EmscriptenDearImGui PROPERTIES LINK_FLAGS "--embed-file data")
+
+    add_custom_command(TARGET EmscriptenDearImGui PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/data/ $<TARGET_FILE_DIR:EmscriptenDearImGui>/data/)
 else()
     find_package(SDL2 REQUIRED)
     include_directories(EmscriptenDearImGui ${SDL2_INCLUDE_DIRS})

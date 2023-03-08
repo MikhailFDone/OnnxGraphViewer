@@ -18,8 +18,8 @@
 #endif
 
 // This example can also compile and run with Emscripten! See 'Makefile.emscripten' for details.
-#ifdef __EMSCRIPTEN__11
-#include "imgui/examples/libs/emscripten/emscripten_mainloop_stub.h"
+#ifdef __EMSCRIPTEN__
+#include "emscripten_mainloop_stub.h"
 #endif
 
 // Main code
@@ -113,7 +113,7 @@ int main(int, char**)
 
     // Main loop
     bool done = false;
-#ifdef __EMSCRIPTEN__11
+#ifdef __EMSCRIPTEN__
     // For an Emscripten build we are disabling file-system access, so let's not attempt to do a fopen() of the imgui.ini file.
     // You may manually call LoadIniSettingsFromMemory() to load settings from your own storage.
     io.IniFilename = NULL;
@@ -177,7 +177,7 @@ int main(int, char**)
 
             ImGui::Begin("Hello, nodes!");                          // Create a window called "Hello, world!" and append into it.
 
-            bp_nodes.OnFrame(1);
+            bp_nodes.OnFrame(io.DeltaTime);
 
             ImGui::End();
         }
@@ -200,7 +200,7 @@ int main(int, char**)
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         SDL_GL_SwapWindow(window);
     }
-#ifdef __EMSCRIPTEN__11
+#ifdef __EMSCRIPTEN__
     EMSCRIPTEN_MAINLOOP_END;
 #endif
 
