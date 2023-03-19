@@ -40,7 +40,6 @@ target_sources(EmscriptenDearImGui PRIVATE
         ${imgui_node_editor_sources}
 )
 
-
 if (EMSCRIPTEN)
     target_compile_options(EmscriptenDearImGui PUBLIC "-sUSE_SDL=2;-sUSE_FREETYPE=1;-sUSE_SDL_IMAGE=2;")
     target_link_options(EmscriptenDearImGui PUBLIC "-sUSE_SDL=2;-sUSE_FREETYPE=1;-sUSE_SDL_IMAGE=2;")
@@ -60,4 +59,13 @@ else()
     find_package(OpenGL REQUIRED)
     include_directories(EmscriptenDearImGui ${OPENGL_INCLUDE_DIR})
     target_link_libraries(EmscriptenDearImGui ${OPENGL_LIBRARIES})
+
+    target_sources(EmscriptenDearImGui PRIVATE
+        "onnx.proto3.pb.h"
+        "onnx.proto3.pb.cc"
+    )
+    
+    find_package(Protobuf REQUIRED)
+    include_directories(${Protobuf_INCLUDE_DIRS})
+    target_link_libraries(EmscriptenDearImGui ${Protobuf_LIBRARIES})
 endif()

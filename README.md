@@ -11,3 +11,9 @@ cmake --build cmake-build-emscripten
 ```
 
 To test run ```python3 -m http.server --directory cmake-build-emscripten/```
+
+
+Update ONNX proto
+```sh
+protoc --cpp_out=. -I=onnx/onnx/ onnx/onnx/onnx.proto3
+```
